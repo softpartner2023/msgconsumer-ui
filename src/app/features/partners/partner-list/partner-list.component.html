@@ -1,0 +1,11 @@
+<h2>Partner List</h2>
+
+<ul *ngIf="partners.length > 0; else empty">
+  <li *ngFor="let p of partners">
+    {{ p.name }} ({{ p.code }})
+  </li>
+</ul>
+
+<ng-template #empty>
+  <p>No partner available.</p>
+</ng-template>

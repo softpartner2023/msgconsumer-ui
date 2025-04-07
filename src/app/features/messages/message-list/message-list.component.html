@@ -1,0 +1,11 @@
+<h2>Liste des messages</h2>
+
+<ul *ngIf="messages.length > 0; else empty">
+  <li *ngFor="let msg of messages">
+    <strong>[{{ msg.direction }}]</strong> {{ msg.content }} — {{ msg.flowType }}
+  </li>
+</ul>
+
+<ng-template #empty>
+  <p>Aucun message trouvé.</p>
+</ng-template>

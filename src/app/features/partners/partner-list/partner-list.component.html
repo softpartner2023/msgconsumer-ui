@@ -1,11 +1,35 @@
-<h2>Partner List</h2>
+<h2>Liste des partenaires</h2>
 
-<ul *ngIf="partners.length > 0; else empty">
-  <li *ngFor="let p of partners">
-    {{ p.name }} ({{ p.code }})
-  </li>
-</ul>
+<table *ngIf="partners.length > 0; else empty" border="1" cellpadding="8" cellspacing="0">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Alias</th>
+    <th>Type</th>
+    <th>Direction</th>
+    <th>Application</th>
+    <th>Flow Type</th>
+    <th>Description</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let partner of partners">
+    <td>{{ partner.id }}</td>
+    <td>{{ partner.alias }}</td>
+    <td>{{ partner.type }}</td>
+    <td>{{ partner.direction }}</td>
+    <td>{{ partner.application }}</td>
+    <td>{{ partner.processedFlowType }}</td>
+    <td>{{ partner.description }}</td>
+    <td>
+      <button (click)="deletePartner(partner.id!)">Delete</button>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
 
 <ng-template #empty>
-  <p>No partner available.</p>
+  <p>No partner found.</p>
 </ng-template>

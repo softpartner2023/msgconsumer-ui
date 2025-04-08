@@ -1,10 +1,13 @@
-import { Direction, FlowType } from './enums';
+import { Direction } from '@enums/direction.enum';
+import { ProcessedFlowType } from '@enums/processed-flow-type.enum';
 
 export interface Message {
   id: number;
   content: string;
-  direction: Direction;
-  flowType: FlowType;
-  createdAt: string;
-  partnerId: number;
+  receptionDate: string;
+  partner: {
+    alias: string;
+    type: string;
+    application: string;
+  };
 }

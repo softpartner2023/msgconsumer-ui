@@ -19,12 +19,4 @@ export class MessageService {
   getById(id: number): Observable<Message> {
     return this.http.get<Message>(`${this.apiUrl}/${id}`);
   }
-
-  create(message: Message): Observable<Message> {
-    return this.http.post<Message>(this.apiUrl, message);
-  }
-
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
 }

@@ -1,0 +1,33 @@
+<h2>Add New Partner</h2>
+
+<form #partnerForm="ngForm" (ngSubmit)="submit()">
+  <label>Alias:
+    <input name="alias" [(ngModel)]="partner.alias" required />
+  </label><br />
+
+  <label>Type:
+    <input name="type" [(ngModel)]="partner.type" required />
+  </label><br />
+
+  <label>Direction:
+    <select name="direction" [(ngModel)]="partner.direction">
+      <option *ngFor="let d of directionKeys()" [value]="d">{{ d }}</option>
+    </select>
+  </label><br />
+
+  <label>Application:
+    <input name="application" [(ngModel)]="partner.application" />
+  </label><br />
+
+  <label>Flow Type:
+    <select name="processedFlowType" [(ngModel)]="partner.processedFlowType">
+      <option *ngFor="let f of flowTypeKeys()" [value]="f">{{ f }}</option>
+    </select>
+  </label><br />
+
+  <label>Description:
+    <textarea name="description" [(ngModel)]="partner.description" required></textarea>
+  </label><br />
+
+  <button type="submit">Create Partner</button>
+</form>

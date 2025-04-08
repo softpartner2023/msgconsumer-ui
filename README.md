@@ -1,27 +1,47 @@
-# MsgconsumerUi
+# 🌐 msgconsumer-ui — Angular Frontend for MQ Consumer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.15.
+This Angular project is the frontend interface for the backend application [`msgconsumer`](https://github.com/softpartner2023/msgconsumer). It allows users to display JMS messages received via IBM MQ and manage associated partners. The UI is built with Angular 17+ and Angular Material for a modern and responsive experience.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## ✅ Main Features
 
-## Code scaffolding
+- 📩 Display of received JMS messages
+- 🔍 View message details in a modal pop-up
+- 👤 Partner management (add, delete, list)
+- 🔗 Message-to-partner association via alias
+- 🎨 Modern UI with Angular Material
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## 🚀 Getting Started
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 1. Requirements
 
-## Running unit tests
+- Node.js (version 18+ recommended)
+- Angular CLI (`npm install -g @angular/cli`)
+- Running backend (`msgconsumer`) at `http://localhost:8080`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 2. Clone the repository
 
-## Running end-to-end tests
+```bash
+git clone https://github.com/softpartner2023/msgconsumer-ui.git
+cd msgconsumer-ui
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 3. Install dependencies
+npm install
 
-## Further help
+### 4. Start the development server
+ng serve
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### 5. Testing the Application
+Send a JMS message using a producer (see backend README)
+Add a new partner using the UI (+ Add Partner)
+Check message-partner association by alias
+Delete a partner from the list
+
+### 6. Potential Improvements
+Add unit tests for components
+Add pagination and filtering for messages
+Improve form validations with error messages
+

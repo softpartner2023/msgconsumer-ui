@@ -5,6 +5,7 @@
     "types": [],
     "baseUrl": "./src",
     "paths": {
+      "@app/*": ["app/*"],
       "@env/*": ["environments/*"],
       "@core/*": ["app/core/*"],
       "@shared/*": ["app/shared/*"],

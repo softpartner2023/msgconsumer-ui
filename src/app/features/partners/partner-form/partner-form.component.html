@@ -1,33 +1,35 @@
-<h2>Add New Partner</h2>
+<mat-card class="form-container">
+  <h2>➕ Add New Partner</h2>
+  <form [formGroup]="partnerForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Alias</mat-label>
+      <input matInput formControlName="alias" required>
+    </mat-form-field>
 
-<form #partnerForm="ngForm" (ngSubmit)="submit()">
-  <label>Alias:
-    <input name="alias" [(ngModel)]="partner.alias" required />
-  </label><br />
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Type</mat-label>
+      <input matInput formControlName="type" required>
+    </mat-form-field>
 
-  <label>Type:
-    <input name="type" [(ngModel)]="partner.type" required />
-  </label><br />
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Direction</mat-label>
+      <mat-select formControlName="direction">
+        <mat-option *ngFor="let dir of directionValues" [value]="dir">{{ dir }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <label>Direction:
-    <select name="direction" [(ngModel)]="partner.direction">
-      <option *ngFor="let d of directionKeys()" [value]="d">{{ d }}</option>
-    </select>
-  </label><br />
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Flow Type</mat-label>
+      <mat-select formControlName="processedFlowType">
+        <mat-option *ngFor="let type of flowTypeValues" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <label>Application:
-    <input name="application" [(ngModel)]="partner.application" />
-  </label><br />
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
 
-  <label>Flow Type:
-    <select name="processedFlowType" [(ngModel)]="partner.processedFlowType">
-      <option *ngFor="let f of flowTypeKeys()" [value]="f">{{ f }}</option>
-    </select>
-  </label><br />
-
-  <label>Description:
-    <textarea name="description" [(ngModel)]="partner.description" required></textarea>
-  </label><br />
-
-  <button type="submit">Create Partner</button>
-</form>
+    <button mat-raised-button color="primary" type="submit">Create</button>
+  </form>
+</mat-card>

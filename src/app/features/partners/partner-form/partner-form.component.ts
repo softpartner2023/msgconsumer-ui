@@ -1,46 +1,51 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Partner } from '@models/partner.model';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from '@app/material.module';
+import { PartnerService } from '@core/services/partner.service';
 import { Direction } from '@enums/direction.enum';
 import { ProcessedFlowType } from '@enums/processed-flow-type.enum';
-import { PartnerService } from '@core/services/partner.service';
+import { Partner } from '@models/partner.model';
 
 @Component({
   selector: 'app-partner-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './partner-form.component.html',
+  styleUrls: ['./partner-form.component.scss'],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MaterialModule
+  ],
 })
 export class PartnerFormComponent {
-  partner: Partner = {
-    id: 0,
-    alias: '',
-    type: '',
-    direction: Direction.INBOUND,
-    application: '',
-    processedFlowType: ProcessedFlowType.MESSAGE,
-    description: '',
-  };
+  partnerForm: FormGroup;
 
-  directionEnum = Direction;
-  flowTypeEnum = ProcessedFlowType;
+  directionValues = Object.values(Direction);
+  flowTypeValues = Object.values(ProcessedFlowType);
 
-  constructor(private partnerService: PartnerService, private router: Router) {}
-
-  directionKeys(): string[] {
-    return Object.keys(this.directionEnum);
-  }
-
-  flowTypeKeys(): string[] {
-    return Object.keys(this.flowTypeEnum);
-  }
-
-  submit(): void {
-    this.partnerService.create(this.partner).subscribe({
-      next: () => this.router.navigate(['/partners']),
-      error: (err) => console.error('Failed to create partner', err),
+  constructor(
+    private fb: FormBuilder,
+    private partnerService: PartnerService,
+    private router: Router
+  ) {
+    this.partnerForm = this.fb.group({
+      alias: ['', Validators.required],
+      type: ['', Validators.required],
+      direction: ['', Validators.required],
+      application: [''],
+      processedFlowType: ['', Validators.required],
+      description: ['', Validators.required],
     });
+  }
+
+  onSubmit(): void {
+    if (this.partnerForm.valid) {
+      const partner: Partner = this.partnerForm.value;
+      this.partnerService.create(partner).subscribe(() => {
+        this.router.navigate(['/partners']);
+      });
+    }
   }
 }

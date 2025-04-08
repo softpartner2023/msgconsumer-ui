@@ -1,56 +1,75 @@
-<h2 class="text-xl font-bold mb-4">Message List</h2>
+<h2 class="text-2xl font-semibold mb-4">📨 Message List</h2>
 
-<table class="table-auto w-full border-collapse border border-gray-400">
-  <thead>
-  <tr class="bg-gray-100">
-    <th class="px-4 py-2 border">#</th>
-    <th class="px-4 py-2 border">Content</th>
-    <th class="px-4 py-2 border">Date</th>
-    <th class="px-4 py-2 border">Partner Alias</th>
-    <th class="px-4 py-2 border">Type</th>
-    <th class="px-4 py-2 border">Application</th>
-    <th class="px-4 py-2 border">Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let msg of messages; let i = index" class="hover:bg-gray-50">
-    <td class="px-4 py-2 border">{{ i + 1 }}</td>
-    <td class="px-4 py-2 border">{{ msg.content }}</td>
-    <td class="px-4 py-2 border">{{ msg.receptionDate | date: 'short' }}</td>
-    <td class="px-4 py-2 border">{{ msg.partner.alias }}</td>
-    <td class="px-4 py-2 border">{{ msg.partner.type }}</td>
-    <td class="px-4 py-2 border">{{ msg.partner.application }}</td>
-    <td class="px-4 py-2 border text-center">
-      <button class="px-2 py-1 bg-blue-500 text-white rounded" (click)="showDetails(msg)">
-        Détail
-      </button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<mat-card>
+  <table mat-table [dataSource]="messages" class="mat-elevation-z2 w-full">
 
-<!-- POPIN DÉTAIL sans animation -->
-<div
-  *ngIf="selectedMessage as msg"
-  class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
->
-  <div class="bg-white p-6 rounded-xl shadow-lg w-[400px]">
-    <h3 class="text-lg font-semibold mb-4">📋 Détails du message</h3>
-    <ul class="text-sm space-y-2">
-      <li><strong>ID :</strong> {{ msg.id }}</li>
-      <li><strong>Content :</strong> {{ msg.content }}</li>
-      <li><strong>Received :</strong> {{ msg.receptionDate | date: 'full' }}</li>
-      <li><strong>Alias :</strong> {{ msg.partner.alias }}</li>
-      <li><strong>Type :</strong> {{ msg.partner.type }}</li>
-      <li><strong>Application :</strong> {{ msg.partner.application }}</li>
-    </ul>
-    <div class="mt-6 text-right">
-      <button
-        class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-        (click)="closePopup()"
-      >
-        Cancel
-      </button>
-    </div>
+    <!-- Index -->
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let _; let i = index">{{ i + 1 }}</td>
+    </ng-container>
+
+    <!-- Content -->
+    <ng-container matColumnDef="content">
+      <th mat-header-cell *matHeaderCellDef>Content</th>
+      <td mat-cell *matCellDef="let msg">{{ msg.content }}</td>
+    </ng-container>
+
+    <!-- Date -->
+    <ng-container matColumnDef="receptionDate">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let msg">{{ msg.receptionDate | date: 'short' }}</td>
+    </ng-container>
+
+    <!-- Partner Alias -->
+    <ng-container matColumnDef="partnerAlias">
+      <th mat-header-cell *matHeaderCellDef>Alias</th>
+      <td mat-cell *matCellDef="let msg">{{ msg.partner.alias }}</td>
+    </ng-container>
+
+    <!-- Type -->
+    <ng-container matColumnDef="partnerType">
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let msg">{{ msg.partner.type }}</td>
+    </ng-container>
+
+    <!-- Application -->
+    <ng-container matColumnDef="application">
+      <th mat-header-cell *matHeaderCellDef>App</th>
+      <td mat-cell *matCellDef="let msg">{{ msg.partner.application }}</td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-center">Actions</th>
+      <td mat-cell *matCellDef="let msg">
+        <button mat-stroked-button color="primary" (click)="showDetails(msg)">Details</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-card>
+
+<!-- ✅ Detail Popin -->
+<ng-container *ngIf="selectedMessage">
+  <div class="popup-backdrop">
+    <mat-card class="popup-card">
+      <h3 class="text-xl font-semibold mb-3">📋 Message Details</h3>
+      <mat-list dense>
+        <mat-list-item><strong>ID:</strong> {{ selectedMessage.id }}</mat-list-item>
+        <mat-list-item><strong>Content:</strong> {{ selectedMessage.content }}</mat-list-item>
+        <mat-list-item><strong>Date:</strong> {{ selectedMessage.receptionDate | date:'full' }}</mat-list-item>
+        <mat-list-item><strong>Alias:</strong> {{ selectedMessage.partner.alias }}</mat-list-item>
+        <mat-list-item><strong>Type:</strong> {{ selectedMessage.partner.type }}</mat-list-item>
+        <mat-list-item><strong>Application:</strong> {{ selectedMessage.partner.application }}</mat-list-item>
+      </mat-list>
+
+      <div class="text-end mt-4">
+        <button mat-raised-button color="warn" (click)="closePopup()">Close</button>
+      </div>
+    </mat-card>
   </div>
-</div>
+</ng-container>
+

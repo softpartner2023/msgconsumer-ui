@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PartnerService } from '@core/services/partner.service';
 import { Partner } from '@models/partner.model';
+import { MaterialModule } from '@app/material.module';
 
 @Component({
   selector: 'app-partner-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MaterialModule],
   templateUrl: './partner-list.component.html',
 })
 export class PartnerListComponent implements OnInit {

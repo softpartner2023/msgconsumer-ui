@@ -1,8 +1,13 @@
-<nav style="background: #f0f0f0; padding: 10px;">
-  <a routerLink="/messages" routerLinkActive="active" style="margin-right: 10px;">Messages</a>
-  <a routerLink="/partners" routerLinkActive="active">Partners</a>
-  <a routerLink="/partners/new" class="px-3 py-2 text-sm font-medium text-blue-700 hover:underline">Add Partner</a>
-</nav>
+<mat-toolbar color="primary">
+  <span>📦 MQ Message Consumer</span>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/messages">Messages</a>
+  <a mat-button routerLink="/partners">Partners</a>
+  <a mat-button routerLink="/partners/new">
+    <mat-icon>add</mat-icon> Add Partner
+  </a>
+</mat-toolbar>
 
-<router-outlet></router-outlet>
-
+<main class="main-container">
+  <router-outlet></router-outlet>
+</main>

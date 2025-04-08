@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MessageService } from '@core/services//message.service';
 import { Message } from '@models/message.model';
+import { MaterialModule } from '@app/material.module';
 import {
   trigger,
   transition,
@@ -12,7 +13,7 @@ import {
 @Component({
   selector: 'app-message-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MaterialModule],
   templateUrl: './message-list.component.html',
   animations: [
     trigger('fade', [
@@ -29,6 +30,8 @@ import {
 export class MessageListComponent implements OnInit {
   messages: Message[] = [];
   selectedMessage: Message | null = null;
+  displayedColumns: string[] = ['index', 'content', 'receptionDate', 'partnerAlias', 'partnerType', 'application', 'actions'];
+
 
   constructor(private messageService: MessageService) {}
 
